@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  note-api
+Globals:
+  Function:
+    Timeout: 3
+####################################### Define DynamoDB
+Resources:
+  NoteTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: notes
+      AttributeDefinitions:
+        - AttributeName: item
+          AttributeType: S
+      KeySchema:
+        - AttributeName: item
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+####################################### Define Note_Lambda_Function
+  NoteFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: app.app
+      Runtime: python3.8
+      Architectures:
+        - x86_64
+      Events:
+        catchall:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
+####################################### Define Add_Note_Lambda_Function
+  AddNoteFunction:
+     Type: AWS::Serverless::Function
+     Properties:
+       CodeUri: src/
+       Handler: add.add
+       Runtime: python3.8
+       Policies:
+         - DynamoDBCrudPolicy:
+             TableName:
+               !Ref NoteTable
+       Architectures:
+         - x86_64
+       Events:
+         catchall:
+           Type: Api
+           Properties:
+             Path: /
+             Method: post
+####################################### Print Output
+Outputs:
+  ServiceApi:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

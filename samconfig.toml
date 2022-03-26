@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "notes-app"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1og2y763y7xk6"
+s3_prefix = "notes-app"
+region = "us-east-2"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+confirm_changeset = true
