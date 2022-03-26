@@ -27,6 +27,9 @@ Resources:
       CodeUri: src/
       Handler: app.app
       Runtime: python3.8
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Type: Linear20PercentEvery2Minute
       Architectures:
         - x86_64
       Events:
@@ -42,6 +45,9 @@ Resources:
        CodeUri: src/
        Handler: add.add
        Runtime: python3.8
+       AutoPublishAlias: live
+       DeploymentPreference:
+        Type: Linear20PercentEvery2Minute
        Policies:
          - DynamoDBCrudPolicy:
              TableName:
