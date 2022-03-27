@@ -14,12 +14,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: item
           AttributeType: S
-        - AttributeName: CreatedAt
-          AttributeType: S
       KeySchema:
         - AttributeName: item
-          KeyType: HASH
-        - AttributeName: CreatedAt
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 1
