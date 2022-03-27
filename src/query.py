@@ -13,9 +13,14 @@ def query(event, context):
     timestamp_week_ago = date_just(timestamp_week_ago)
     timestamp_current = date_just(timestamp_current)
     stmnt = f"SELECT * FROM notes WHERE CreatedAt BETWEEN '{timestamp_week_ago}' AND '{timestamp_current}'"
-    response = client.execute_statement(Statement= stmnt)
-    x=len(response["Items"])
+    qres = client.execute_statement(Statement= stmnt)
+    x=len(qres["Items"])
     output=f"The number of added item/s in the last week : {x}"
     s3 = boto3.client('s3')
-    s3.put_object(Bucket=bucket_name, Key=timestamp_current, Body=output)
-    return output
+    fileName=str(timestamp_current) + '.txt'
+    s3.put_object(Bucket=bucket_name, Key=fileName, Body=output)
+    response = {
+        'statusCode': 200,
+        'body': "Report Added!"
+    }
+    return response
