@@ -1,4 +1,3 @@
-from email.quoprimime import body_check
 import os
 import boto3
 from datetime import date, timedelta
@@ -15,6 +14,8 @@ def query(event, context):
     timestamp_current = date_just(timestamp_current)
     stmnt = f"SELECT * FROM notes WHERE CreatedAt BETWEEN '{timestamp_week_ago}' AND '{timestamp_current}'"
     response = client.execute_statement(Statement= stmnt)
+    x=len(response["Items"])
+    output=f"The number of added item/s in the last week : {x}"
     s3 = boto3.client('s3')
-    s3.put_object(Bucket=bucket_name, Key=timestamp_current, Body=response)
-    return response
+    s3.put_object(Bucket=bucket_name, Key=timestamp_current, Body=output)
+    return output
