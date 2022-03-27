@@ -66,7 +66,7 @@ Resources:
        Runtime: python3.8
        Environment:
         Variables:
-          BUCKET_NAME: !Ref MyFileBucket
+          BUCKET_NAME: !Ref MyFilesBucket
        Policies:
          - AmazonDynamoDBFullAccess
          - S3WritePolicy:
@@ -74,6 +74,12 @@ Resources:
                !Ref MyFilesBucket
        Architectures:
          - x86_64
+       Events:
+        catchall:
+          Type: Api
+          Properties:
+            Path: /
+            Method: get
 ####################################### Print Output
 Outputs:
   ServiceApi:
