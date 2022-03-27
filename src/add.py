@@ -11,7 +11,7 @@ d1 = today.strftime("%d/%m/%Y")
 def add(event, context):
     data = event['body']
     item = ast.literal_eval(data)
-    timestamp = {'date': d1}
+    timestamp = {'CreatedAt': d1}
     output=item.copy()
     for key, value in timestamp.items():
         output[key] = value
