@@ -19,7 +19,8 @@ def query(event, context):
     x = len(qres["Items"])
     output = f"The number of added item/s in the last week : {x}"
     s3 = boto3.client('s3')
-    timestamp_current = ''.join(item for item in timestamp_current if item.isalnum())
+    timestamp_current = ''.join(
+        item for item in timestamp_current if item.isalnum())
     fileName = timestamp_current + '.txt'
     s3.put_object(Bucket=bucket_name, Key=fileName, Body=output)
     response = {

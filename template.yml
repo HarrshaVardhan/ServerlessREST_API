@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  note-api
+  notes-app
 Globals:
   Function:
     Timeout: 3
@@ -75,25 +75,12 @@ Resources:
        Architectures:
          - x86_64
        Events:
-        ReportGeneratorAPI:
-          Type: Api
-          Properties:
-            Path: /query
-            Method: get
         ReportGeneratorScheduler:
           Type: Schedule
           Properties:
-            Schedule: rate(1 minute)
+            Schedule: rate(7 days)
 ####################################### Print Output
 Outputs:
   ServiceApi:
     Description: "API Gateway endpoint URL"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
-# vents:
-#         MyCloudWatchEvent:
-#           Type: Schedule
-#           Properties:
-#             # Read more about schedule expressions here: 
-#             # https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-#             # This event runs every Friday at 16 UTC/9AM PST
-#             Schedule: cron(0 16 ? * FRI *)

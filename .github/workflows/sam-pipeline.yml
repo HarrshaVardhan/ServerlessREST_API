@@ -1,4 +1,4 @@
-name: ServerlessRESTAPI Deployment
+name: notes-app Serverless Deployment
 on:
   push:
     branches:
