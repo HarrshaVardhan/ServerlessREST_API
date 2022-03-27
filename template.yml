@@ -33,7 +33,7 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        catchall:
+        ServiceStatusAPI:
           Type: Api
           Properties:
             Path: /
@@ -52,7 +52,7 @@ Resources:
        Architectures:
          - x86_64
        Events:
-         catchall:
+         PostDataAPI:
            Type: Api
            Properties:
              Path: /
@@ -75,11 +75,15 @@ Resources:
        Architectures:
          - x86_64
        Events:
-        catchall:
+        ReportGeneratorAPI:
           Type: Api
           Properties:
             Path: /query
             Method: get
+        ReportGeneratorScheduler:
+          Type: Schedule
+          Properties:
+            Schedule: rate(1 minute)
 ####################################### Print Output
 Outputs:
   ServiceApi:

@@ -12,7 +12,7 @@ def add(event, context):
     data = event['body']
     item = ast.literal_eval(data)
     timestamp = {'CreatedAt': d1}
-    output=item.copy()
+    output = item.copy()
     for key, value in timestamp.items():
         output[key] = value
     table.put_item(Item=output)
