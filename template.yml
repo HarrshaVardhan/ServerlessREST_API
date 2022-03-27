@@ -65,9 +65,7 @@ Resources:
        Handler: query.query
        Runtime: python3.8
        Policies:
-         - DynamoDBCrudPolicy:
-             TableName:
-               !Ref NoteTable
+         - AmazonDynamoDBFullAccess
          - S3WritePolicy:
              BucketName: 
                !Ref MyFilesBucket
