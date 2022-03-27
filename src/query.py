@@ -1,4 +1,4 @@
-import json
+import os
 import boto3
 from datetime import date, timedelta
 
@@ -6,7 +6,7 @@ def date_just(timestamp):
     return timestamp.strftime("%d/%m/%Y")
 
 def query(event, context):
-    
+    bucket_name = os.environ['BUCKET_NAME']
     client = boto3.client('dynamodb')
     timestamp_week_ago = date.today() - timedelta(days=7)
     timestamp_current = date.today()
@@ -16,4 +16,4 @@ def query(event, context):
     response = client.execute_statement(Statement= stmnt)
     x=len(response["Items"])
     
-    return f"The number of added in a week ago : {x} Item/s"
+    return f"The number of added in a week ago : {x} Item/s on {bucket_name}"

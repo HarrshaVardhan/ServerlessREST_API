@@ -64,6 +64,9 @@ Resources:
        CodeUri: src/
        Handler: query.query
        Runtime: python3.8
+       Environment:
+        Variables:
+          BUCKET_NAME: !Ref MyFileBucket
        Policies:
          - AmazonDynamoDBFullAccess
          - S3WritePolicy:
