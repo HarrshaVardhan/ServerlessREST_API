@@ -1,3 +1,4 @@
+from email.quoprimime import body_check
 import os
 import boto3
 from datetime import date, timedelta
@@ -7,7 +8,6 @@ def date_just(timestamp):
 
 def query(event, context):
     bucket_name = os.environ['BUCKET_NAME']
-    print(bucket_name)
     client = boto3.client('dynamodb')
     timestamp_week_ago = date.today() - timedelta(days=7)
     timestamp_current = date.today()
@@ -15,6 +15,6 @@ def query(event, context):
     timestamp_current = date_just(timestamp_current)
     stmnt = f"SELECT * FROM notes WHERE CreatedAt BETWEEN '{timestamp_week_ago}' AND '{timestamp_current}'"
     response = client.execute_statement(Statement= stmnt)
-    x=len(response["Items"])
-    output=f"The number of added in a week ago : {x} Item/s on {bucket_name}"
-    return output
+    s3 = boto3.client('s3')
+    s3.put_object(Bucket=bucket_name, Key=timestamp_current, Body=response)
+    return response
