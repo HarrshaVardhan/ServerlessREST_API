@@ -78,7 +78,7 @@ Resources:
         catchall:
           Type: Api
           Properties:
-            Path: /
+            Path: /query
             Method: get
 ####################################### Print Output
 Outputs:
