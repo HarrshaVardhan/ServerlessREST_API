@@ -73,12 +73,6 @@ Resources:
                !Ref MyFilesBucket
        Architectures:
          - x86_64
-       Events:
-         catchall:
-           Type: Api
-           Properties:
-             Path: /
-             Method: post
 ####################################### Print Output
 Outputs:
   ServiceApi:
